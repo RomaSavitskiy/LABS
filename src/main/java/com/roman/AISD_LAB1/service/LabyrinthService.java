@@ -1,242 +1,246 @@
 package com.roman.AISD_LAB1.service;
 
-import com.roman.AISD_LAB1.entity.Directions;
+import com.roman.AISD_LAB1.entity.enums.Directions;
 import com.roman.AISD_LAB1.entity.Floor;
 import com.roman.AISD_LAB1.entity.Marker;
 
 public class LabyrinthService {
-    public Directions direction;  //todo
+    public Directions direction;
 
-    public void up(Floor floor, Marker marker) throws InterruptedException {
-        if (floor.getField()[floor.getMarker().getI()][floor.getMarker().getJ() - 1] != 1){
+    public void solveLabyrinth(Floor[] floorArray, Marker marker, Marker oldMarker) throws InterruptedException {
+        int idFloor = 0;
 
-            setOldMarker(floor);
+        moveFromUp(floorArray[idFloor], marker, oldMarker);
 
-            floor.getMarker().setJ(floor.getMarker().getJ() - 1);
+        while (idFloor <= 3) {
+            switch (direction) {
+                case UP -> moveFromUp(floorArray[idFloor], marker, oldMarker);
+                case DOWN -> moveFromDown(floorArray[idFloor], marker, oldMarker);
+                case RIGHT -> moveFromRight(floorArray[idFloor], marker, oldMarker);
+                case LEFT -> moveFromLeft(floorArray[idFloor], marker, oldMarker);
+            }
+
+            if (floorArray[idFloor].getFloorEndFlag() == 0) {
+                idFloor++;
+
+                System.out.println();
+
+                if (idFloor == 4) {
+                    System.out.println("-----------YOU FOUND AN EXIT--------------");
+                    break;
+                }
+
+                System.out.println("-----------FLOOR" + " " + (idFloor + 1) + "-------------");
+            }
+        }
+    }
+
+    public void moveFromUp(Floor floor, Marker marker, Marker oldMarker) throws InterruptedException {
+        if (floor.getField()[marker.getI()][marker.getJ() - 1] != 1){
+            setOldMarker(marker, oldMarker);
+
+            marker.setJ(marker.getJ() - 1);
+
+            checkEndFloor(floor, marker);
 
             direction = Directions.RIGHT;
 
-            checkEndFloor(floor);
-
-            printNewLabyrinth(floor);
+            printNewLabyrinth(floor, marker, oldMarker);
             Thread.sleep(1500);
-        } else if (floor.getField()[floor.getMarker().getI() + 1][floor.getMarker().getJ()] != 1){
-            setOldMarker(floor);
+        } else if (floor.getField()[marker.getI() + 1][marker.getJ()] != 1){
+            setOldMarker(marker, oldMarker);
 
-            floor.getMarker().setI(floor.getMarker().getI() + 1);
+            marker.setI(marker.getI() + 1);
 
-            checkEndFloor(floor);
+            checkEndFloor(floor, marker);
 
             direction = Directions.UP;
 
-            printNewLabyrinth(floor);
+            printNewLabyrinth(floor, marker, oldMarker);
             Thread.sleep(1500);
-        } else if (floor.getField()[floor.getMarker().getI()][floor.getMarker().getJ() + 1] != 1) {
-            setOldMarker(floor);
+        } else if (floor.getField()[marker.getI()][marker.getJ() + 1] != 1) {
+            setOldMarker(marker, oldMarker);
 
-            floor.getMarker().setJ(floor.getMarker().getJ() + 1);
+            marker.setJ(marker.getJ() + 1);
 
-            checkEndFloor(floor);
+            checkEndFloor(floor, marker);
 
             direction = Directions.LEFT;
 
-            printNewLabyrinth(floor);
+            printNewLabyrinth(floor, marker, oldMarker);
             Thread.sleep(1500);
+        } else if (floor.getField()[marker.getI() - 1][marker.getJ()] != 1){
+            setOldMarker(marker, oldMarker);
 
-            checkEndFloor(floor);
-        } else if (floor.getField()[floor.getMarker().getI() - 1][floor.getMarker().getJ()] != 1){
-            setOldMarker(floor);
+            marker.setI(marker.getI() - 1);
 
-            floor.getMarker().setI(floor.getMarker().getI() - 1);
-
-            checkEndFloor(floor);
+            checkEndFloor(floor, marker);
 
             direction = Directions.DOWN;
 
-            printNewLabyrinth(floor);
+            printNewLabyrinth(floor, marker, oldMarker);
             Thread.sleep(1500);
-
-            checkEndFloor(floor);
         }
     }
 
-    public void down(Floor floor) throws InterruptedException {
-        if ((floor.getField()[floor.getMarker().getI()][floor.getMarker().getJ() + 1] == 0) ||
-                (floor.getField()[floor.getMarker().getI()][floor.getMarker().getJ() + 1] == 9)){
-            setOldMarker(floor);
+    public void moveFromDown(Floor floor, Marker marker, Marker oldMarker) throws InterruptedException {
+        if (floor.getField()[marker.getI()][marker.getJ() + 1] != 1) {
+            setOldMarker(marker, oldMarker);
 
-            floor.getMarker().setJ(floor.getMarker().getJ() + 1);
+            marker.setJ(marker.getJ() + 1);
 
             direction = Directions.LEFT;
 
-            checkEndFloor(floor);
+            checkEndFloor(floor, marker);
 
-            printNewLabyrinth(floor);
+            printNewLabyrinth(floor, marker, oldMarker);
             Thread.sleep(1500);
-        } else if (floor.getField()[floor.getMarker().getI() - 1][floor.getMarker().getJ()] != 1){
-            setOldMarker(floor);
+        } else if (floor.getField()[marker.getI() - 1][marker.getJ()] != 1){
+            setOldMarker(marker, oldMarker);
 
-            floor.getMarker().setI(floor.getMarker().getI() - 1);
+            marker.setI(marker.getI() - 1);
 
             direction = Directions.DOWN;
 
-            checkEndFloor(floor);
+            checkEndFloor(floor, marker);
 
-            printNewLabyrinth(floor);
+            printNewLabyrinth(floor, marker, oldMarker);
             Thread.sleep(1500);
-        } else if (floor.getField()[floor.getMarker().getI()][floor.getMarker().getJ() - 1] != 1) {
-            setOldMarker(floor);
+        } else if (floor.getField()[marker.getI()][marker.getJ() - 1] != 1) {
+            setOldMarker(marker, oldMarker);
 
-            floor.getMarker().setJ(floor.getMarker().getJ() - 1);
+            marker.setJ(marker.getJ() - 1);
 
             direction = Directions.RIGHT;
 
-            checkEndFloor(floor);
+            checkEndFloor(floor, marker);
 
-            printNewLabyrinth(floor);
+            printNewLabyrinth(floor, marker, oldMarker);
             Thread.sleep(1500);
+        } else if (floor.getField()[marker.getI() + 1][marker.getJ()] != 1) {
+            setOldMarker(marker, oldMarker);
 
-            checkEndFloor(floor);
-        } else if (floor.getField()[floor.getMarker().getI() + 1][floor.getMarker().getJ()] != 1) {
-            setOldMarker(floor);
-
-            floor.getMarker().setI(floor.getMarker().getI() + 1);
+            marker.setI(marker.getI() + 1);
 
             direction = Directions.UP;
 
-            checkEndFloor(floor);
+            checkEndFloor(floor, marker);
 
-            printNewLabyrinth(floor);
+            printNewLabyrinth(floor, marker, oldMarker);
             Thread.sleep(1500);
-
-            checkEndFloor(floor);
         }
     }
 
-    public void right(Floor floor) throws InterruptedException {
-        if (floor.getField()[floor.getMarker().getI() - 1][floor.getMarker().getJ()] != 1) {
-            setOldMarker(floor);
+    public void moveFromRight(Floor floor, Marker marker, Marker oldMarker) throws InterruptedException {
+        if (floor.getField()[marker.getI() - 1][marker.getJ()] != 1) {
+            setOldMarker(marker, oldMarker);
 
-            floor.getMarker().setI(floor.getMarker().getI() - 1);
+            marker.setI(marker.getI() - 1);
 
             direction = Directions.DOWN;
 
-            checkEndFloor(floor);
+            checkEndFloor(floor, marker);
 
-            printNewLabyrinth(floor);
+            printNewLabyrinth(floor, marker, oldMarker);
             Thread.sleep(1500);
+        } else if (floor.getField()[marker.getI()][marker.getJ() - 1] != 1) {
+            setOldMarker(marker, oldMarker);
 
-            return;
-        } else if (floor.getField()[floor.getMarker().getI()][floor.getMarker().getJ() - 1] != 1) {
-            setOldMarker(floor);
-
-            floor.getMarker().setJ(floor.getMarker().getJ() - 1);
+            marker.setJ(marker.getJ() - 1);
 
             direction = Directions.RIGHT;
 
-            checkEndFloor(floor);
+            checkEndFloor(floor, marker);
 
-            printNewLabyrinth(floor);
+            printNewLabyrinth(floor, marker, oldMarker);
             Thread.sleep(1500);
-        } else if (floor.getField()[floor.getMarker().getI() - 1][floor.getMarker().getJ()] !=1 ) {
-            setOldMarker(floor);
+        } else if (floor.getField()[marker.getI() - 1][marker.getJ()] !=1 ) {
+            setOldMarker(marker, oldMarker);
 
-            floor.getMarker().setI(floor.getMarker().getI() - 1);
+            marker.setI(marker.getI() - 1);
 
             direction = Directions.UP;
 
-            checkEndFloor(floor);
+            checkEndFloor(floor, marker);
 
-            printNewLabyrinth(floor);
+            printNewLabyrinth(floor, marker, oldMarker);
             Thread.sleep(1500);
+        } else if (floor.getField()[marker.getI()][oldMarker.getJ() + 1] != 1) {
+            setOldMarker(marker, oldMarker);
 
-            return;
-        } else if (floor.getField()[floor.getMarker().getI()][floor.getMarker().getJ() + 1] != 1) {
-            setOldMarker(floor);
-
-            floor.getMarker().setJ(floor.getMarker().getJ() + 1);
+            marker.setJ(marker.getJ() + 1);
 
             direction = Directions.LEFT;
 
-            checkEndFloor(floor);
+            checkEndFloor(floor, marker);
 
-            printNewLabyrinth(floor);
+            printNewLabyrinth(floor, marker, oldMarker);
             Thread.sleep(1500);
-
-            return;
         }
     }
 
-    public void left(Floor floor) throws InterruptedException {
-        if (floor.getField()[floor.getMarker().getI() + 1][floor.getMarker().getJ()] != 1) {
-            setOldMarker(floor);
+    public void moveFromLeft(Floor floor, Marker marker, Marker oldMarker) throws InterruptedException {
+        if (floor.getField()[marker.getI() + 1][marker.getJ()] != 1) {
+            setOldMarker(marker, oldMarker);
 
-            floor.getMarker().setI(floor.getMarker().getI() + 1);
+            marker.setI(marker.getI() + 1);
 
             direction = Directions.UP;
 
-            checkEndFloor(floor);
+            checkEndFloor(floor, marker);
 
-            printNewLabyrinth(floor);
+            printNewLabyrinth(floor, marker, oldMarker);
             Thread.sleep(1500);
+        } else if (floor.getField()[marker.getI()][marker.getJ() + 1] != 1) {
+            setOldMarker(marker, oldMarker);
 
-            return;
-        } else if (floor.getField()[floor.getMarker().getI()][floor.getMarker().getJ() + 1] != 1) {
-            setOldMarker(floor);
-
-            floor.getMarker().setJ(floor.getMarker().getJ() + 1);
+            marker.setJ(marker.getJ() + 1);
 
             direction = Directions.LEFT;
 
-            checkEndFloor(floor);
+            checkEndFloor(floor, marker);
 
-            printNewLabyrinth(floor);
+            printNewLabyrinth(floor, marker, oldMarker);
             Thread.sleep(1500);
+        } else if (floor.getField()[marker.getI() - 1][marker.getJ()] != 1) {
+            setOldMarker(marker, oldMarker);
 
-            return;
-        } else if (floor.getField()[floor.getMarker().getI() - 1][floor.getMarker().getJ()] != 1) {
-            setOldMarker(floor);
-
-            floor.getMarker().setI(floor.getMarker().getI() - 1);
+            marker.setI(marker.getI() - 1);
 
             direction = Directions.DOWN;
 
-            checkEndFloor(floor);
+            checkEndFloor(floor, marker);
 
-            printNewLabyrinth(floor);
+            printNewLabyrinth(floor, marker, oldMarker);
             Thread.sleep(1500);
+        } else if (floor.getField()[marker.getI()][marker.getJ() - 1] != 1){
+            setOldMarker(marker, oldMarker);
 
-            return;
-        } else if (floor.getField()[floor.getMarker().getI()][floor.getMarker().getJ() - 1] != 1){
-            setOldMarker(floor);
-
-            floor.getMarker().setJ(floor.getMarker().getJ() - 1);
+            marker.setJ(marker.getJ() - 1);
 
             direction = Directions.RIGHT;
 
-            checkEndFloor(floor);
+            checkEndFloor(floor, marker);
 
-            printNewLabyrinth(floor);
+            printNewLabyrinth(floor, marker, oldMarker);
             Thread.sleep(1500);
-
-            return;
         }
     }
 
-    public void setOldMarker(Floor floor) {
-        floor.getOldMarker().setI(floor.getMarker().getI());
-        floor.getOldMarker().setJ(floor.getMarker().getJ());
+    public void setOldMarker(Marker marker, Marker oldMarker) {
+        oldMarker.setI(marker.getI());
+        oldMarker.setJ(marker.getJ());
     }
 
-    public void checkEndFloor(Floor floor) {
-        if (floor.getField()[floor.getMarker().getI()][floor.getMarker().getJ()] == 9) {
-            floor.setNumber(0);
+    public void checkEndFloor(Floor floor, Marker marker) {
+        if (floor.getField()[marker.getI()][marker.getJ()] == 9) {
+            floor.setFloorEndFlag(0);
         }
     }
 
-    public void printNewLabyrinth(Floor floor) {
-        floor.getField()[floor.getOldMarker().getI()][floor.getOldMarker().getJ()] = 0;
-        floor.getField()[floor.getMarker().getI()][floor.getMarker().getJ()] = 3;
+    public void printNewLabyrinth(Floor floor, Marker marker, Marker oldMarker) {
+        floor.getField()[oldMarker.getI()][oldMarker.getJ()] = 0;
+        floor.getField()[marker.getI()][marker.getJ()] = 3;
 
         System.out.println();
 
