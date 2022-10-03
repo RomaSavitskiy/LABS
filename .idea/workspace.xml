@@ -6,9 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="e6c02115-cb38-447d-9547-b4e46ee311e7" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/roman/AISD_LAB1/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/roman/AISD_LAB1/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/roman/AISD_LAB1/entity/Directions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/roman/AISD_LAB1/entity/enums/Directions.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/roman/AISD_LAB1/entity/Floor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/roman/AISD_LAB1/entity/Floor.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/roman/AISD_LAB1/service/LabyrinthService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/roman/AISD_LAB1/service/LabyrinthService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -96,7 +93,11 @@
       <workItem from="1662718799188" duration="7820000" />
       <workItem from="1662788685562" duration="3277000" />
       <workItem from="1662895904930" duration="22870000" />
-      <workItem from="1662977231032" duration="1505000" />
+      <workItem from="1662977231032" duration="2525000" />
+      <workItem from="1663143584625" duration="2047000" />
+      <workItem from="1663154650878" duration="808000" />
+      <workItem from="1663250784541" duration="84000" />
+      <workItem from="1664790366100" duration="1786000" />
     </task>
     <task id="LOCAL-00001" summary="Added main algorithm">
       <created>1662970139628</created>
@@ -105,7 +106,14 @@
       <option name="project" value="LOCAL" />
       <updated>1662970139628</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Added final fixes">
+      <created>1662995903102</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1662995903102</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -113,7 +121,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Added main algorithm" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added main algorithm" />
+    <MESSAGE value="Added final fixes" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added final fixes" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

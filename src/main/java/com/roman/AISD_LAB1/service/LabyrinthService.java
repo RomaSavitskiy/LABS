@@ -5,7 +5,8 @@ import com.roman.AISD_LAB1.entity.Floor;
 import com.roman.AISD_LAB1.entity.Marker;
 
 public class LabyrinthService {
-    public Directions direction;
+    private Directions direction;
+    private final static int TIME_SLEEP = 1700;
 
     public void solveLabyrinth(Floor[] floorArray, Marker marker, Marker oldMarker) throws InterruptedException {
         int idFloor = 0;
@@ -35,7 +36,7 @@ public class LabyrinthService {
         }
     }
 
-    public void moveFromUp(Floor floor, Marker marker, Marker oldMarker) throws InterruptedException {
+    private void moveFromUp(Floor floor, Marker marker, Marker oldMarker) throws InterruptedException {
         if (floor.getField()[marker.getI()][marker.getJ() - 1] != 1){
             setOldMarker(marker, oldMarker);
 
@@ -46,7 +47,7 @@ public class LabyrinthService {
             direction = Directions.RIGHT;
 
             printNewLabyrinth(floor, marker, oldMarker);
-            Thread.sleep(1500);
+            startSleepTime();
         } else if (floor.getField()[marker.getI() + 1][marker.getJ()] != 1){
             setOldMarker(marker, oldMarker);
 
@@ -57,7 +58,7 @@ public class LabyrinthService {
             direction = Directions.UP;
 
             printNewLabyrinth(floor, marker, oldMarker);
-            Thread.sleep(1500);
+            startSleepTime();
         } else if (floor.getField()[marker.getI()][marker.getJ() + 1] != 1) {
             setOldMarker(marker, oldMarker);
 
@@ -68,7 +69,7 @@ public class LabyrinthService {
             direction = Directions.LEFT;
 
             printNewLabyrinth(floor, marker, oldMarker);
-            Thread.sleep(1500);
+            startSleepTime();
         } else if (floor.getField()[marker.getI() - 1][marker.getJ()] != 1){
             setOldMarker(marker, oldMarker);
 
@@ -79,11 +80,11 @@ public class LabyrinthService {
             direction = Directions.DOWN;
 
             printNewLabyrinth(floor, marker, oldMarker);
-            Thread.sleep(1500);
+            startSleepTime();
         }
     }
 
-    public void moveFromDown(Floor floor, Marker marker, Marker oldMarker) throws InterruptedException {
+    private void moveFromDown(Floor floor, Marker marker, Marker oldMarker) throws InterruptedException {
         if (floor.getField()[marker.getI()][marker.getJ() + 1] != 1) {
             setOldMarker(marker, oldMarker);
 
@@ -94,7 +95,7 @@ public class LabyrinthService {
             checkEndFloor(floor, marker);
 
             printNewLabyrinth(floor, marker, oldMarker);
-            Thread.sleep(1500);
+            startSleepTime();
         } else if (floor.getField()[marker.getI() - 1][marker.getJ()] != 1){
             setOldMarker(marker, oldMarker);
 
@@ -105,7 +106,7 @@ public class LabyrinthService {
             checkEndFloor(floor, marker);
 
             printNewLabyrinth(floor, marker, oldMarker);
-            Thread.sleep(1500);
+            startSleepTime();
         } else if (floor.getField()[marker.getI()][marker.getJ() - 1] != 1) {
             setOldMarker(marker, oldMarker);
 
@@ -116,7 +117,7 @@ public class LabyrinthService {
             checkEndFloor(floor, marker);
 
             printNewLabyrinth(floor, marker, oldMarker);
-            Thread.sleep(1500);
+            startSleepTime();
         } else if (floor.getField()[marker.getI() + 1][marker.getJ()] != 1) {
             setOldMarker(marker, oldMarker);
 
@@ -127,11 +128,11 @@ public class LabyrinthService {
             checkEndFloor(floor, marker);
 
             printNewLabyrinth(floor, marker, oldMarker);
-            Thread.sleep(1500);
+            startSleepTime();
         }
     }
 
-    public void moveFromRight(Floor floor, Marker marker, Marker oldMarker) throws InterruptedException {
+    private void moveFromRight(Floor floor, Marker marker, Marker oldMarker) throws InterruptedException {
         if (floor.getField()[marker.getI() - 1][marker.getJ()] != 1) {
             setOldMarker(marker, oldMarker);
 
@@ -142,7 +143,7 @@ public class LabyrinthService {
             checkEndFloor(floor, marker);
 
             printNewLabyrinth(floor, marker, oldMarker);
-            Thread.sleep(1500);
+            startSleepTime();
         } else if (floor.getField()[marker.getI()][marker.getJ() - 1] != 1) {
             setOldMarker(marker, oldMarker);
 
@@ -153,7 +154,7 @@ public class LabyrinthService {
             checkEndFloor(floor, marker);
 
             printNewLabyrinth(floor, marker, oldMarker);
-            Thread.sleep(1500);
+            startSleepTime();
         } else if (floor.getField()[marker.getI() - 1][marker.getJ()] !=1 ) {
             setOldMarker(marker, oldMarker);
 
@@ -164,7 +165,7 @@ public class LabyrinthService {
             checkEndFloor(floor, marker);
 
             printNewLabyrinth(floor, marker, oldMarker);
-            Thread.sleep(1500);
+            startSleepTime();
         } else if (floor.getField()[marker.getI()][oldMarker.getJ() + 1] != 1) {
             setOldMarker(marker, oldMarker);
 
@@ -175,11 +176,11 @@ public class LabyrinthService {
             checkEndFloor(floor, marker);
 
             printNewLabyrinth(floor, marker, oldMarker);
-            Thread.sleep(1500);
+            startSleepTime();
         }
     }
 
-    public void moveFromLeft(Floor floor, Marker marker, Marker oldMarker) throws InterruptedException {
+    private void moveFromLeft(Floor floor, Marker marker, Marker oldMarker) throws InterruptedException {
         if (floor.getField()[marker.getI() + 1][marker.getJ()] != 1) {
             setOldMarker(marker, oldMarker);
 
@@ -190,7 +191,7 @@ public class LabyrinthService {
             checkEndFloor(floor, marker);
 
             printNewLabyrinth(floor, marker, oldMarker);
-            Thread.sleep(1500);
+            startSleepTime();
         } else if (floor.getField()[marker.getI()][marker.getJ() + 1] != 1) {
             setOldMarker(marker, oldMarker);
 
@@ -201,7 +202,7 @@ public class LabyrinthService {
             checkEndFloor(floor, marker);
 
             printNewLabyrinth(floor, marker, oldMarker);
-            Thread.sleep(1500);
+            startSleepTime();
         } else if (floor.getField()[marker.getI() - 1][marker.getJ()] != 1) {
             setOldMarker(marker, oldMarker);
 
@@ -212,7 +213,7 @@ public class LabyrinthService {
             checkEndFloor(floor, marker);
 
             printNewLabyrinth(floor, marker, oldMarker);
-            Thread.sleep(1500);
+            startSleepTime();
         } else if (floor.getField()[marker.getI()][marker.getJ() - 1] != 1){
             setOldMarker(marker, oldMarker);
 
@@ -223,22 +224,22 @@ public class LabyrinthService {
             checkEndFloor(floor, marker);
 
             printNewLabyrinth(floor, marker, oldMarker);
-            Thread.sleep(1500);
+            startSleepTime();
         }
     }
 
-    public void setOldMarker(Marker marker, Marker oldMarker) {
+    private void setOldMarker(Marker marker, Marker oldMarker) {
         oldMarker.setI(marker.getI());
         oldMarker.setJ(marker.getJ());
     }
 
-    public void checkEndFloor(Floor floor, Marker marker) {
+    private void checkEndFloor(Floor floor, Marker marker) {
         if (floor.getField()[marker.getI()][marker.getJ()] == 9) {
             floor.setFloorEndFlag(0);
         }
     }
 
-    public void printNewLabyrinth(Floor floor, Marker marker, Marker oldMarker) {
+    private void printNewLabyrinth(Floor floor, Marker marker, Marker oldMarker) {
         floor.getField()[oldMarker.getI()][oldMarker.getJ()] = 0;
         floor.getField()[marker.getI()][marker.getJ()] = 3;
 
@@ -250,5 +251,9 @@ public class LabyrinthService {
             }
             System.out.println();
         }
+    }
+
+    private void startSleepTime() throws InterruptedException {
+        Thread.sleep(TIME_SLEEP);
     }
 }
